@@ -6,7 +6,7 @@
 #    By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/27 08:04:40 by akuburas          #+#    #+#              #
-#    Updated: 2024/01/09 09:39:47 by akuburas         ###   ########.fr        #
+#    Updated: 2024/01/29 16:25:28 by akuburas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,6 @@ SRCS = 	ft_atoi.c \
 		ft_putnbr_fd.c \
 		ft_strcmp.c \
 		ft_strndup.c \
-		get_next_line_bonus.c \
 		ft_printf.c \
 		ft_ptrhex.c \
 		ft_put_unsigned_nbr.c \

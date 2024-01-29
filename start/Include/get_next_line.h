@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.c                                    :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/29 14:38:13 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/29 16:04:51 by akuburas         ###   ########.fr       */
+/*   Created: 2023/12/04 11:26:06 by akuburas          #+#    #+#             */
+/*   Updated: 2023/12/06 08:46:17 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/so_long.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	error_handler(t_data *data, int classification)
-{
-	ft_printf("Error\n");
-	if (classification == 1)
-		ft_printf("Usage: ./so_long [file_name].ber\n");
-	else if (classification == 2)
-		ft_printf("Invalid file given. \n");
-	exit(1);
-}
+# include <stdlib.h>
+# include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+char	*get_next_line(int fd);
+char	*ft_strchr(char *s, int c);
+size_t	ft_strlen(const char *s);
+char	*ft_strjoin(char *s1, char *s2);
+#endif

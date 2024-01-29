@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:43:17 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/02 17:19:01 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:23:00 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../Include/get_next_line.h"
 
 static inline char	*ft_line_allocator(int fd, char *line_storage)
 {
@@ -100,20 +100,20 @@ static char	*ft_remove_line(char *ln_strg)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*line_storage[2048];
+	static char	*line_storage;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line_storage[fd] = ft_line_allocator(fd, line_storage[fd]);
-	if (!line_storage[fd])
+	line_storage = ft_line_allocator(fd, line_storage);
+	if (!line_storage)
 		return (NULL);
-	line = ft_give_line(line_storage[fd]);
+	line = ft_give_line(line_storage);
 	if (!line)
 	{
-		free(line_storage[fd]);
-		line_storage[fd] = NULL;
+		free(line_storage);
+		line_storage = NULL;
 		return (NULL);
 	}
-	line_storage[fd] = ft_remove_line(line_storage[fd]);
+	line_storage = ft_remove_line(line_storage);
 	return (line);
 }
