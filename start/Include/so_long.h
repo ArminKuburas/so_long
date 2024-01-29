@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:52:35 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/29 16:39:29 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/01/30 00:16:10 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ typedef struct s_data
 	mlx_t			mlx;
 	int				map_fd;
 	int				line_amount;
+	int				collectable_amount;
+	int				player_amount;
+	int				exit_amount;
+	int				move_count;
+	int				player_x;
+	int				player_y;
 	int32_t			width;
 	int32_t			height;
 	mlx_texture_t	hero;
