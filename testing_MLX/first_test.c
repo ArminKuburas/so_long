@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:08:52 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/26 17:05:08 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:32:50 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	t_gdata	*data;
 	int		i;
 
-	data->x = 1;
 	i = 0;
 	data = param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(data->window);
 	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
 		while (i < 6)
-			data->hero_images[i++]->instances[0].y += 15;
+		{
+			data->hero_images[i]->instances[0].y += 15;
+			mlx_resize_image(data->hero_images[i++], 300, 300);
+		}
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
 		while (i < 6)
 			data->hero_images[i++]->instances[0].y -= 15;
@@ -42,7 +44,6 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	}
 	if (keydata.key == MLX_KEY_N && keydata.action == MLX_PRESS)
 		mlx_image_to_window(data->window, data->hero_images[0], 0, 0);
-	data->x = 0;
 }
 
 void	my_scrollhook(double xdelta, double ydelta, void *param)
@@ -84,6 +85,10 @@ char	*png_path(char *name, int number, t_gdata *data)
 
 int	check_button(t_gdata *data)
 {
+	int	num_frames;
+	int	time_since;
+
+	num_frames = 6;
 	if (mlx_is_key_down(data->window, MLX_KEY_W))
 		return (1);
 	if (mlx_is_key_down(data->window, MLX_KEY_S))
@@ -101,19 +106,16 @@ void	my_hook(void *param)
 	double	time_since;
 	int		num_frames;
 
-	// if (data->x == 1)
-	// 	return ;
 	num_frames = 6;
 	data = param;
 	time_since = mlx_get_time();
-	if (time_since - data->time >= 0.05)
+	if (time_since - data->time >= 0.05 && data->x == 0)
 	{
 		data->hero_images[data->hero_frames]->instances->enabled = false;
 		data->hero_frames = (data->hero_frames + 1) % num_frames;
 		data->hero_images[data->hero_frames]->instances->enabled = true;
 		data->time = mlx_get_time();
 	}
-	data->x = 1;
 }
 
 // void	my_hook2(void *param)
@@ -156,20 +158,22 @@ int	main(void)
 			;
 		data.hero_images[i]->instances->enabled = false;
 		free(png);
-		// png = (png_path("./warrior_move_frames/warrior_m_", i, &data));
-		// data.hero_m_textures[i] = mlx_load_png(png);
-		// data.hero_m_images[i] = mlx_texture_to_image(data.window, data.hero_m_textures[i]);
-		// if (mlx_image_to_window(data.window, data.hero_m_images[i], 50, 50) < 0)
-		// 	;
-		// data.hero_m_images[i]->instances->enabled = false;
-		// free(png);
+		png = (png_path("./warrior_move_frames/warrior_m_", i, &data));
+		data.hero_m_textures[i] = mlx_load_png(png);
+		data.hero_m_images[i] = mlx_texture_to_image(data.window, data.hero_m_textures[i]);
+		if (mlx_image_to_window(data.window, data.hero_m_images[i], 50, 50) < 0)
+			;
+		data.hero_m_images[i]->instances->enabled = false;
+		free(png);
 		i++;
 	}
+	printf("This is the width: %d and this is the height %d\n", data.hero_images[0]->width, data.hero_images[0]->height);
 	data.hero_images[0]->instances->enabled = true;
 	mlx_key_hook(data.window, my_keyhook, &data);
 	mlx_loop_hook(data.window, my_hook, &data);
 	// mlx_loop_hook(data.window, my_hook2, &data);
 	mlx_loop(data.window);
+	printf("below the loop! \n");
 	mlx_terminate(data.window);
 	return (0);
 }
