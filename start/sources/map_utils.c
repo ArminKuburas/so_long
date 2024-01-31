@@ -6,9 +6,10 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 00:00:00 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/30 00:18:55 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/01/30 09:45:23 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 void	dfs(t_data *data, int x, int y, int *collected)
 {
