@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:37:37 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/31 14:37:27 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:28:52 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,13 @@ int	is_map_beatable(t_data *data)
 	player_x = -1;
 	player_y = -1;
 	find_player(data, &player_x, &player_y);
-
 	map_copy = malloc(data->line_amount * sizeof(char **));
 	if (!map_copy)
 		exit_handler(data, 2);
 	ft_double_strdup(map_copy, data->map);
 	dfs_collect(data, player_x, player_y, &collected);
-	if (collected != data->collectable_amount)
-		exit_handler(data, 2);
-	if (dfs_exit(map_copy, data->line_amount, player_x, player_y) == 0)
-		exit_handler(data, 2);
-		// freeing **char function.
+	result = dfs_exit(map_copy, data->line_amount, player_x, player_y);
+	ft_free_substrings(map_copy);
+	ft_free_substrings(data->map);
 	return (collected == data->collectable_amount && result);
 }

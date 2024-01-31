@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:26:14 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/31 15:19:23 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/01/31 15:26:15 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,18 @@ void	map_path_check(t_data *data, char *map_path)
 	}
 	if (data->line_amount < 3)
 		error_handler(data, 2);
-	data->map_data = (char **)malloc(data->line_amount * sizeof(char **));
-	if (data->map_data == NULL)
+	data->map = (char **)malloc((data->line_amount + 1) * sizeof(char **));
+	if (data->map == NULL)
 		error_handler(data, 3);
+	data->map[data->line_amount + 1] = NULL;
 }
 
 void	init_data(t_data *data, char *map_path)
 {
 	int	j;
 
-	ft_printf("Inside of init data. before bzero\n");
 	ft_bzero(data, sizeof(t_data));
-	ft_printf("After bzero  before map_path_check\n");
 	map_path_check(data, map_path);
-	ft_printf("After map_path_check\n");
 	map_validity_check(data, map_path);
-	ft_printf("After map validity check\n");
 	j = is_map_beatable(data);
-	ft_printf("Lets see what is_map_beatable is returning: %d\n", j);
-	ft_printf("Inside of init data. After is_map_beatable\n");
 }
