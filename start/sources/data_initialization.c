@@ -6,16 +6,15 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:26:14 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/31 15:26:15 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:33:33 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/so_long.h"
 
-void	map_path_check(t_data *data, char *map_path)
+void	argument_check(t_data *data, char *map_path)
 {
 	int		str_len;
-	char	*temp;
 
 	str_len = ft_strlen(map_path);
 	if (str_len < 5)
@@ -24,15 +23,22 @@ void	map_path_check(t_data *data, char *map_path)
 		error_handler(data, 2);
 	data->map_fd = open(map_path, O_RDONLY);
 	if (data->map_fd == -1)
-		error_handler(data, 2);
+		error_handler(data, 4);
+}
+
+void	map_path_check(t_data *data, char *map_path)
+{
+	char	*temp;
+
+	argument_check(data, map_path);
 	temp = get_next_line(data->map_fd);
-	data->line_amount = 0;
 	while (temp != NULL)
 	{
 		free(temp);
-		data->line_amount += 1;
+		data->line_amount++;
 		temp = get_next_line(data->map_fd);
 	}
+	ft_printf("This is line amount %d\n", data->line_amount);
 	if (data->line_amount < 3)
 		error_handler(data, 2);
 	data->map = (char **)malloc((data->line_amount + 1) * sizeof(char **));
@@ -45,7 +51,6 @@ void	init_data(t_data *data, char *map_path)
 {
 	int	j;
 
-	ft_bzero(data, sizeof(t_data));
 	map_path_check(data, map_path);
 	map_validity_check(data, map_path);
 	j = is_map_beatable(data);
