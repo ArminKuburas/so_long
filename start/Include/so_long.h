@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:52:35 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/30 00:16:10 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/01/31 13:29:42 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ typedef struct s_data
 	int				map_fd;
 	int				line_amount;
 	int				collectable_amount;
-	int				player_amount;
-	int				exit_amount;
 	int				move_count;
 	int				player_x;
 	int				player_y;
@@ -40,7 +38,7 @@ typedef struct s_data
 	mlx_image_t		img_collectible;
 	mlx_texture_t	exit;
 	mlx_image_t		img_exit;
-	char			**map_data;
+	char			**map;
 }	t_data;
 
 void	init_data(t_data *data, char *map);
