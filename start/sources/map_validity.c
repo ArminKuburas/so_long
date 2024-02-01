@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 00:00:00 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/01 05:35:34 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/01 06:18:17 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,15 @@ void	map_validity_check(t_data *data, char *map_path)
 	while (i < data->line_amount)
 	{
 		temp = get_next_line(data->map_fd);
+		if (temp == NULL)
+			error_handler(data, 3);
 		data->map[i] = ft_strdup(temp);
+		if (!data->map[i])
+			error_handler(data, 3);
 		free(temp);
 		i++;
 	}
+	close(data->map_fd);
 	line_check(data);
 	ft_printf("After line_check\n");
 }

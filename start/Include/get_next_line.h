@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:26:06 by akuburas          #+#    #+#             */
-/*   Updated: 2023/12/06 08:46:17 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/01 06:21:57 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 4200
 # endif
 
 char	*get_next_line(int fd);

@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:38:13 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/31 16:17:24 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/01 06:19:59 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ void	error_handler(t_data *data, int classification)
 		ft_printf("Malloc failed. \n");
 	else if (classification == 4)
 		ft_printf("Open failed \n");
+	ft_free_substrings(data->map);
 	exit(1);
 }
