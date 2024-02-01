@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:52:35 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/31 13:29:42 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/01 05:20:04 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ typedef struct s_data
 void	init_data(t_data *data, char *map);
 void	error_handler(t_data *data, int classification);
 char	*get_next_line(int fd);
-
+int		check_walls(char *str);
+void	ft_double_strdup(char **copy, char **original);
+void	ft_free_substrings(char **arr_str);
+int		is_map_beatable(t_data *data);
+void	map_validity_check(t_data *data, char *map_path);
 
 #endif

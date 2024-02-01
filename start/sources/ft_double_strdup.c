@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:36:07 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/31 14:42:07 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/01 06:07:11 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ void	ft_double_strdup(char **copy, char **original)
 	int	i;
 
 	i = 0;
+	ft_printf("Before while loop inside ft double strdup\n");
 	while (original[i] != NULL)
 	{
+		ft_printf("Inside while loop inside ft double strdup\n");
+		ft_printf("This is original[i]: %s\n", original[i]);
 		copy[i] = ft_strdup(original[i]);
-		if (copy[i])
+		if (!copy[i])
 		{
 			ft_free_substrings(copy);
 		}
