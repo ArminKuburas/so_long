@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 00:00:00 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/01 06:18:17 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/02 22:18:10 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,26 +61,6 @@ static void	val_first_last(char *first, char *last, t_data *data)
 	}
 }
 
-static void	compare_length(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (ft_strlen(data->map[i]) < 3)
-		error_handler(data, 2);
-	while (i < data->line_amount)
-	{
-		if (i == (data->line_amount - 1))
-		{
-			if (ft_strlen(data->map[i]) != (ft_strlen(data->map[0]) - 1))
-				error_handler(data, 2);
-		}
-		else if (ft_strlen(data->map[i]) != ft_strlen(data->map[0]))
-			error_handler(data, 2);
-		i++;
-	}
-}
-
 static void	line_check(t_data *data)
 {
 	int	player_amount;
@@ -113,16 +93,36 @@ void	map_validity_check(t_data *data, char *map_path)
 	i = 0;
 	while (i < data->line_amount)
 	{
-		temp = get_next_line(data->map_fd);
-		if (temp == NULL)
-			error_handler(data, 3);
-		data->map[i] = ft_strdup(temp);
+		data->map[i] = get_next_line(data->map_fd);
 		if (!data->map[i])
 			error_handler(data, 3);
-		free(temp);
 		i++;
 	}
 	close(data->map_fd);
 	line_check(data);
 	ft_printf("After line_check\n");
+}
+
+void	map_path_check(t_data *data, char *map_path)
+{
+	char	*temp;
+
+	argument_check(data, map_path);
+	temp = get_next_line(data->map_fd);
+	while (temp != NULL)
+	{
+		free(temp);
+		data->line_amount++;
+		temp = get_next_line(data->map_fd);
+	}
+	ft_printf("This is line amount %d\n", data->line_amount);
+	if (data->line_amount < 3)
+		error_handler(data, 2);
+	ft_printf("After checking line_amount\n");
+	data->map = ft_calloc(data->line_amount + 1, sizeof(char *));
+	if (data->map == NULL)
+		error_handler(data, 3);
+	ft_printf("After mallocing data->map\n");
+	data->map[data->line_amount] = NULL;
+	ft_printf("After setting data->map to NULL\n");
 }

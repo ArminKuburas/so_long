@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:52:35 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/01 05:20:04 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/02 23:26:36 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 typedef struct s_data
 {
-	mlx_t			mlx;
+	mlx_t			*mlx;
 	int				map_fd;
 	int				line_amount;
 	int				collectable_amount;
@@ -46,8 +46,11 @@ void	error_handler(t_data *data, int classification);
 char	*get_next_line(int fd);
 int		check_walls(char *str);
 void	ft_double_strdup(char **copy, char **original);
-void	ft_free_substrings(char **arr_str);
+void	ft_free_substrings(char ***arr_str);
 int		is_map_beatable(t_data *data);
 void	map_validity_check(t_data *data, char *map_path);
+void	compare_length(t_data *data);
+void	map_path_check(t_data *data, char *map_path);
+void	argument_check(t_data *data, char *map_path);
 
 #endif

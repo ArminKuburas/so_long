@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   second_test.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/29 13:56:08 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/02 21:06:25 by akuburas         ###   ########.fr       */
+/*   Created: 2024/02/02 16:45:15 by akuburas          #+#    #+#             */
+/*   Updated: 2024/02/02 17:15:27 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/so_long.h"
+#include "../MLX42/MLX42.h"
+#include <stdio.h>
+#include "libft.h"
 
-
-int32_t	main(int argc, char **argv)
+void	loopey(mlx_t *mlx)
 {
-	t_data	data;
+	mlx_loop(mlx);
+}
 
-	ft_bzero(&data, sizeof(t_data));
-	if (argc != 2)
-		error_handler(&data, 1);
-	init_data(&data, argv[1]);
+int	main(void)
+{
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+
+	mlx = mlx_init(500, 500, "Second test", 1);
+	loopey(mlx);
+	printf("mlx_init returned: %p\n", mlx);
+	mlx_terminate(mlx);
 	return (0);
 }

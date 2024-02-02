@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:36:07 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/01 06:07:11 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/02 22:30:21 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	ft_double_strdup(char **copy, char **original)
 		copy[i] = ft_strdup(original[i]);
 		if (!copy[i])
 		{
-			ft_free_substrings(copy);
+			ft_free_substrings(&copy);
+			break ;
 		}
 		i++;
 	}
