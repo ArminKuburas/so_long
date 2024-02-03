@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:52:35 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/02 23:26:36 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:29:06 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@ typedef struct s_data
 	int				player_y;
 	int32_t			width;
 	int32_t			height;
-	mlx_texture_t	hero;
-	mlx_image_t		img_hero;
-	mlx_texture_t	empty_space;
-	mlx_image_t		img_empty_space;
-	mlx_texture_t	wall;
-	mlx_image_t		img_wall;
-	mlx_texture_t	collectible;
-	mlx_image_t		img_collectible;
-	mlx_texture_t	exit;
-	mlx_image_t		img_exit;
+	mlx_texture_t	*hero;
+	mlx_image_t		*img_hero;
+	mlx_texture_t	*floor;
+	mlx_image_t		*img_floor;
+	mlx_texture_t	*wall;
+	mlx_image_t		*img_wall;
+	mlx_texture_t	*collectible;
+	mlx_image_t		*img_collectible;
+	mlx_texture_t	*exit;
+	mlx_image_t		*img_exit;
 	char			**map;
 }	t_data;
 
