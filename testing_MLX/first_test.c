@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:08:52 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/29 12:32:50 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/03 23:07:47 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	my_hook(void *param)
 	num_frames = 6;
 	data = param;
 	time_since = mlx_get_time();
-	if (time_since - data->time >= 0.05 && data->x == 0)
+	if (time_since - data->time >= 0.1 && data->x == 0)
 	{
 		data->hero_images[data->hero_frames]->instances->enabled = false;
 		data->hero_frames = (data->hero_frames + 1) % num_frames;

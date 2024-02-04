@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:26:14 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/03 20:37:10 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/04 04:53:56 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	initialize_map(t_data *data)
 	while (i < data->line_amount)
 	{
 		data->map[i] = get_next_line(data->map_fd);
+		ft_printf("This is data->map[%d]: %s\n", i, data->map[i]);
 		if (!data->map[i])
 			error_handler(data, 3);
 		i++;
@@ -80,21 +81,65 @@ void	place_player(t_data *data)
 	mlx_image_to_window(data->mlx, data->img_hero, x, y);
 }
 
-void	key_handler(mlx_key_data_t keydata, void *param)
+void	place_collectibles(t_data *data)
 {
-	t_data	*data;
+	int	i;
+	int	j;
+	int	x;
+	int	y;
+	int	z;
 
-	data = param;
-	if (keydata.key == MLX_KEY_ESCAPE)
-		mlx_terminate(data->mlx);
-	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		data->img_hero->instances[0].y -= data->img_wall->height;
-	else if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		data->img_hero->instances[0].x -= data->img_wall->width;
-	else if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		data->img_hero->instances[0].y += data->img_wall->height;
-	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		data->img_hero->instances[0].x += data->img_wall->width;
+	i = 0;
+	j = 0;
+	y = 0;
+	z = 0;
+	while (j < data->line_amount)
+	{
+		i = 0;
+		x = 0;
+		while (i < (int)ft_strlen(data->map[0]) - 1)
+		{
+			ft_printf("This is data->map[%d][%d]: %c\n", j, i, data->map[j][i]);
+			if (data->map[j][i] == 'C')
+			{
+				mlx_image_to_window(data->mlx, data->img_collectible, x, y);
+				data->collectable_x[z] = i;
+				data->collectable_y[z] = j;
+				z++;
+				ft_printf("Collectible placed at x: %d, y: %d\n", x, y);
+			}
+			x += data->img_wall->width;
+			i++;
+		}
+		j++;
+		y += data->img_wall->height;
+	}
+}
+
+void	place_exit(t_data *data)
+{
+	int	i;
+	int	j;
+	int	x;
+	int	y;
+
+	i = 0;
+	j = 0;
+	y = 0;
+	while (j < data->line_amount)
+	{
+		i = 0;
+		x = 0;
+		while (i < (int)ft_strlen(data->map[0]) - 1)
+		{
+			if (data->map[j][i] == 'E')
+				mlx_image_to_window(data->mlx, data->img_exit, x, y);
+			x += data->img_wall->width;
+			i++;
+		}
+		j++;
+		y += data->img_wall->height;
+	}
 }
 
 void	init_data(t_data *data, char *map_path)
@@ -104,27 +149,16 @@ void	init_data(t_data *data, char *map_path)
 	uint32_t	height;
 
 	map_path_check(data, map_path);
-	ft_printf("After map_path_check\n");
 	map_validity_check(data, map_path);
-	ft_printf("After map_validity_check\n");
 	check = is_map_beatable(data);
 	if (check == 0)
 		error_handler(data, 2);
 	else if (check == 1)
 		ft_printf("Map is beatable\n");
-	ft_printf("This is data->player_x: %d\n", data->player_x);
-	ft_printf("This is data->player_y: %d\n", data->player_y);
-	ft_printf("This is data->line_amount: %d\n", data->line_amount);
-	ft_printf("This is data->collectable_amount: %d\n", data->collectable_amount);
-	ft_printf("This is data->move_count: %d\n", data->move_count);
 	data->map_fd = open(map_path, O_RDONLY);
 	if (data->map_fd == -1)
 		error_handler(data, 4);
 	initialize_map(data);
-	ft_printf("After initialize_map\n");
-	ft_printf("This is where the player is: %c\n", data->map[data->player_y][data->player_x]);
-	ft_printf("This is data->width: %d\n", data->width);
-	ft_printf("This is data->height: %d\n", data->height);
 	data->mlx = mlx_init(1800, 900, "so_long", 0);
 	mlx_resize_hook(data->mlx, resize_function, data);
 	data->wall = mlx_load_png("../map_textures/wall_tile.png");
@@ -133,6 +167,11 @@ void	init_data(t_data *data, char *map_path)
 	data->img_floor = mlx_texture_to_image(data->mlx, data->floor);
 	data->hero = mlx_load_png("../warrior_idle_textures/warrior_0.png");
 	data->img_hero = mlx_texture_to_image(data->mlx, data->hero);
+	data->collectible = mlx_load_png("../sheep_textures/sheep_0.png");
+	data->img_collectible = mlx_texture_to_image(data->mlx, data->collectible);
+	data->exit = mlx_load_png("../map_textures/exit_castle.png");
+	data->img_exit = mlx_texture_to_image(data->mlx, data->exit);
+	ft_printf("Size of sheep texture: width and height: %d, %d\n", data->img_collectible->width, data->img_collectible->height);
 	width = 1800 / ft_strlen(data->map[0]);
 	height = 900 / data->line_amount;
 	if (width > height)
@@ -142,12 +181,25 @@ void	init_data(t_data *data, char *map_path)
 	mlx_resize_image(data->img_wall, width, height);
 	mlx_resize_image(data->img_floor, width, height);
 	mlx_resize_image(data->img_hero, width, height);
+	mlx_resize_image(data->img_collectible, width, height);
+	mlx_resize_image(data->img_exit, width, height);
 	create_map(data);
-	ft_printf("This is the height and witdh of the image: %d, %d\n", data->img_wall->height, data->img_wall->width);
-	ft_printf("This is the height and witdh of the image floor: %d, %d\n", data->img_floor->height, data->img_floor->width);
-	ft_printf("This is the height and witdh of the image hero: %d, %d\n", data->img_hero->height, data->img_hero->width);
+	ft_printf("after create_map\n");
+	mlx_set_window_size(data->mlx, data->img_wall->width * (ft_strlen(data->map[0]) - 1), data->img_wall->height * data->line_amount);
+	data->collectable_x = ft_calloc(data->collectable_amount + 1, sizeof(int));
+	if (!data->collectable_x)
+		error_handler(data, 3);
+	data->collectable_y = ft_calloc(data->collectable_amount + 1, sizeof(int));
+	if (!data->collectable_y)
+		error_handler(data, 3);
+	data->collectable_x[data->collectable_amount] = -1;
+	data->collectable_y[data->collectable_amount] = -1;
+	place_collectibles(data);
+	place_exit(data);
+	ft_printf("after place_collectibles\n");
 	place_player(data);
-	mlx_key_hook(data->mlx, key_handler, data);
+	ft_printf("after place_player\n");
+	mlx_key_hook(data->mlx, player_movement, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 }

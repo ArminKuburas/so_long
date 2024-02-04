@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:52:35 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/03 19:29:06 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/04 04:24:26 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ typedef struct s_data
 	int				map_fd;
 	int				line_amount;
 	int				collectable_amount;
+	int				collected;
+	int				*collectable_x;
+	int				*collectable_y;
 	int				move_count;
 	int				player_x;
 	int				player_y;
@@ -52,5 +55,6 @@ void	map_validity_check(t_data *data, char *map_path);
 void	compare_length(t_data *data);
 void	map_path_check(t_data *data, char *map_path);
 void	argument_check(t_data *data, char *map_path);
+void	player_movement(mlx_key_data_t keydata, void *param);
 
 #endif
