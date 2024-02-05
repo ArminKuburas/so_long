@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:26:14 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/04 04:53:56 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 04:05:19 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,10 @@ static void	initialize_map(t_data *data)
 	while (i < data->line_amount)
 	{
 		data->map[i] = get_next_line(data->map_fd);
-		ft_printf("This is data->map[%d]: %s\n", i, data->map[i]);
 		if (!data->map[i])
 			error_handler(data, 3);
 		i++;
 	}
-}
-
-void	resize_function(int32_t width, int32_t height, void *param)
-{
-	t_data	*data;
-
-	data = param;
-	ft_printf("This is width: %d\n", width);
-	ft_printf("This is height: %d\n", height);
-	ft_printf("This is data->mlx->width: %d\n", data->mlx->width);
-	ft_printf("This is data->mlx->height: %d\n", data->mlx->height);
-	data->width = data->mlx->width;
-	data->height = data->mlx->height;
 }
 
 void	create_map(t_data *data)
@@ -89,7 +75,6 @@ void	place_collectibles(t_data *data)
 	int	y;
 	int	z;
 
-	i = 0;
 	j = 0;
 	y = 0;
 	z = 0;
@@ -99,14 +84,14 @@ void	place_collectibles(t_data *data)
 		x = 0;
 		while (i < (int)ft_strlen(data->map[0]) - 1)
 		{
-			ft_printf("This is data->map[%d][%d]: %c\n", j, i, data->map[j][i]);
 			if (data->map[j][i] == 'C')
 			{
-				mlx_image_to_window(data->mlx, data->img_collectible, x, y);
+				if (mlx_image_to_window(data->mlx, data->img_collectible, x, y)
+					== -1)
+					mlx_error(data, 1);
 				data->collectable_x[z] = i;
 				data->collectable_y[z] = j;
 				z++;
-				ft_printf("Collectible placed at x: %d, y: %d\n", x, y);
 			}
 			x += data->img_wall->width;
 			i++;
@@ -171,7 +156,6 @@ void	init_data(t_data *data, char *map_path)
 	data->img_collectible = mlx_texture_to_image(data->mlx, data->collectible);
 	data->exit = mlx_load_png("../map_textures/exit_castle.png");
 	data->img_exit = mlx_texture_to_image(data->mlx, data->exit);
-	ft_printf("Size of sheep texture: width and height: %d, %d\n", data->img_collectible->width, data->img_collectible->height);
 	width = 1800 / ft_strlen(data->map[0]);
 	height = 900 / data->line_amount;
 	if (width > height)
@@ -196,9 +180,7 @@ void	init_data(t_data *data, char *map_path)
 	data->collectable_y[data->collectable_amount] = -1;
 	place_collectibles(data);
 	place_exit(data);
-	ft_printf("after place_collectibles\n");
 	place_player(data);
-	ft_printf("after place_player\n");
 	mlx_key_hook(data->mlx, player_movement, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
