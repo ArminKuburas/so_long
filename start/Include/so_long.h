@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:52:35 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/04 04:24:26 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 10:02:37 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@
 # include "../../MLX42/MLX42.h"
 # include "../libft/libft.h"
 # include <fcntl.h>
+
+typedef struct s_pointer
+{
+	int	i;
+	int	j;
+	int	x;
+	int	y;
+	int	z;
+}	t_pointer;
 
 typedef struct s_data
 {
@@ -29,8 +38,6 @@ typedef struct s_data
 	int				move_count;
 	int				player_x;
 	int				player_y;
-	int32_t			width;
-	int32_t			height;
 	mlx_texture_t	*hero;
 	mlx_image_t		*img_hero;
 	mlx_texture_t	*floor;
@@ -56,5 +63,9 @@ void	compare_length(t_data *data);
 void	map_path_check(t_data *data, char *map_path);
 void	argument_check(t_data *data, char *map_path);
 void	player_movement(mlx_key_data_t keydata, void *param);
+void	create_map(t_data *data);
+void	texture_image_loader(t_data *data);
+void	resizer(t_data *data);
+
 
 #endif
