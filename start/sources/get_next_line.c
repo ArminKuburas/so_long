@@ -6,20 +6,20 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 23:43:17 by akuburas          #+#    #+#             */
-/*   Updated: 2024/01/29 16:23:00 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:54:04 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/get_next_line.h"
 
-static inline char	*ft_line_allocator(int fd, char *line_storage)
+static inline char	*ft_line_allocator(int fd, char *line_storage, int *m_fail)
 {
 	char	*buffer;
 	int		read_bytes;
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
-		return (free(line_storage), NULL);
+		return (m_fail++, free(line_storage), NULL);
 	read_bytes = 1;
 	while (!ft_strchr(line_storage, '\n') && read_bytes != 0)
 	{
@@ -39,7 +39,7 @@ static inline char	*ft_line_allocator(int fd, char *line_storage)
 	return (line_storage);
 }
 
-char	*ft_give_line(char *line_storage)
+char	*ft_give_line(char *line_storage, int *malloc_fail)
 {
 	char	*line;
 	int		i;
@@ -52,7 +52,7 @@ char	*ft_give_line(char *line_storage)
 			break ;
 	line = (char *)malloc((i + 1) * sizeof(char));
 	if (!line)
-		return (NULL);
+		return (malloc_fail++, NULL);
 	i = 0;
 	while (line_storage[i] && line_storage[i] != '\n')
 	{
@@ -68,7 +68,7 @@ char	*ft_give_line(char *line_storage)
 	return (line);
 }
 
-static char	*ft_remove_line(char *ln_strg)
+static char	*ft_remove_line(char *ln_strg, int *malloc_fail)
 {
 	char	*new_storage;
 	int		i;
@@ -80,14 +80,14 @@ static char	*ft_remove_line(char *ln_strg)
 	if (!ln_strg[i])
 	{
 		free(ln_strg);
-		return (NULL);
+		return (malloc_fail++, NULL);
 	}
 	new_storage = (char *)malloc((ft_strlen(ln_strg) - i++) * sizeof(char));
 	if (!new_storage)
 	{
 		free(ln_strg);
 		ln_strg = NULL;
-		return (NULL);
+		return (malloc_fail++, NULL);
 	}
 	j = 0;
 	while (ln_strg[i])
@@ -97,23 +97,23 @@ static char	*ft_remove_line(char *ln_strg)
 	return (new_storage);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int *malloc_fail)
 {
 	char		*line;
 	static char	*line_storage;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line_storage = ft_line_allocator(fd, line_storage);
+	line_storage = ft_line_allocator(fd, line_storage, malloc_fail);
 	if (!line_storage)
 		return (NULL);
-	line = ft_give_line(line_storage);
+	line = ft_give_line(line_storage, malloc_fail);
 	if (!line)
 	{
 		free(line_storage);
 		line_storage = NULL;
 		return (NULL);
 	}
-	line_storage = ft_remove_line(line_storage);
+	line_storage = ft_remove_line(line_storage, malloc_fail);
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 19:12:10 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/05 10:03:40 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:18:42 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	place_wall_floor(t_data *data)
 				check = mlx_image_to_window(data->mlx, data->img_floor,
 						cordinates.x, cordinates.y);
 			if (check == -1)
-				mlx_error(data, 4);
+				mlx_error(data, IMAGE_FAILED);
 			cordinates.x += data->img_wall->width;
 			cordinates.i++;
 		}
@@ -47,7 +47,8 @@ static void	place_player(t_data *data)
 
 	x = data->player_x * data->img_wall->width;
 	y = data->player_y * data->img_wall->height;
-	mlx_image_to_window(data->mlx, data->img_hero, x, y);
+	if (mlx_image_to_window(data->mlx, data->img_hero, x, y) == -1)
+		mlx_error(data, IMAGE_FAILED);
 }
 
 static void	place_collectibles(t_data *data)
@@ -65,7 +66,7 @@ static void	place_collectibles(t_data *data)
 			{
 				if (mlx_image_to_window(data->mlx, data->img_collectible,
 						cordinates.x, cordinates.y) == -1)
-					mlx_error(data, 1);
+					mlx_error(data, IMAGE_FAILED);
 				data->collectable_x[cordinates.z] = cordinates.i;
 				data->collectable_y[cordinates.z] = cordinates.j;
 				cordinates.z++;
@@ -90,8 +91,9 @@ static void	place_exit(t_data *data)
 		while (cordinates.i < (int)ft_strlen(data->map[0]) - 1)
 		{
 			if (data->map[cordinates.j][cordinates.i] == 'E')
-				mlx_image_to_window(data->mlx, data->img_exit,
-					cordinates.x, cordinates.y);
+				if (mlx_image_to_window(data->mlx, data->img_exit,
+						cordinates.x, cordinates.y) == -1)
+					mlx_error(data, IMAGE_FAILED);
 			cordinates.x += data->img_wall->width;
 			cordinates.i++;
 		}

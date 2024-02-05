@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:26:06 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/01 06:21:57 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:54:32 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #  define BUFFER_SIZE 4200
 # endif
 
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, int *malloc_fail);
 char	*ft_strchr(char *s, int c);
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char *s1, char *s2);

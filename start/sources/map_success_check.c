@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 13:37:37 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/02 22:31:06 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 12:29:00 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,23 +88,14 @@ int	is_map_beatable(t_data *data)
 	find_player(data, &player_x, &player_y);
 	map_copy = malloc((data->line_amount + 1) * sizeof(char **));
 	if (!map_copy)
-		error_handler(data, 3);
+		error_handler(data, MALLOC_FAILED);
 	map_copy[data->line_amount] = NULL;
-	ft_printf("After mallocing map_copy\n");
 	ft_double_strdup(map_copy, data->map);
 	if (!map_copy)
-		error_handler(data, 3);
-	ft_printf("After ft_double_strdup\n");
+		error_handler(data, MALLOC_FAILED);
 	dfs_collect(data, player_x, player_y, &collected);
-	ft_printf("After dfs_collect\n");
-	ft_printf("This is collected: %d\n", collected);
-	ft_printf("This is data->collectable_amount: %d\n", data->collectable_amount);
 	result = dfs_exit(map_copy, data->line_amount, player_x, player_y);
-	ft_printf("This is result: %d\n", result);
-	ft_printf("After dfs_exit\n");
 	ft_free_substrings(&map_copy);
-	ft_printf("After ft_free_substrings map_copy\n");
 	ft_free_substrings(&(data->map));
-	ft_printf("After ft_free_substrings data->map\n");
 	return (collected == data->collectable_amount && result);
 }

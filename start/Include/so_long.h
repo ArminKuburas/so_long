@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:52:35 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/05 10:02:37 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 12:31:02 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@
 # include "../../MLX42/MLX42.h"
 # include "../libft/libft.h"
 # include <fcntl.h>
+
+enum e_errors
+{
+	MALLOC_FAILED = 3,
+	INVALID_FILE = 2,
+	OPEN_FAILED = 4,
+	IMAGE_FAILED = 5,
+	INIT_FAILED = 6,
+	LOAD_FAILURE = 7,
+	RESIZE_FAILED = 8
+};
 
 typedef struct s_pointer
 {
@@ -53,7 +64,7 @@ typedef struct s_data
 
 void	init_data(t_data *data, char *map);
 void	error_handler(t_data *data, int classification);
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, int *malloc_fail);
 int		check_walls(char *str);
 void	ft_double_strdup(char **copy, char **original);
 void	ft_free_substrings(char ***arr_str);
@@ -66,6 +77,6 @@ void	player_movement(mlx_key_data_t keydata, void *param);
 void	create_map(t_data *data);
 void	texture_image_loader(t_data *data);
 void	resizer(t_data *data);
-
+void	close_everything(void *param);
 
 #endif

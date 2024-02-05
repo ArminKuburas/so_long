@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:56:08 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/05 10:08:14 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 12:17:44 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	game_handler(t_data *data)
 {
 	data->mlx = mlx_init(1800, 900, "Save The Sheep!", 0);
 	if (data->mlx == NULL)
-		error_handler(data, 5);
+		error_handler(data, INIT_FAILED);
 	texture_image_loader(data);
 	resizer(data);
 	create_map(data);
