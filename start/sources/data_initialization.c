@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:26:14 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/05 12:26:46 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:28:08 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	initialize_map(t_data *data)
 	data->map[data->line_amount] = NULL;
 	while (i < data->line_amount)
 	{
-		data->map[i] = get_next_line(data->map_fd, malloc_check);
+		data->map[i] = get_next_line(data->map_fd, &malloc_check);
 		if (malloc_check != 0)
 			error_handler(data, MALLOC_FAILED);
 		i++;

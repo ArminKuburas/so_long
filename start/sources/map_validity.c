@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 00:00:00 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/05 12:29:52 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:58:48 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static void	line_check(t_data *data)
 
 void	map_validity_check(t_data *data, char *map_path)
 {
-	char	*temp;
 	int		i;
 	int		malloc_check;
 
@@ -89,7 +88,7 @@ void	map_validity_check(t_data *data, char *map_path)
 	i = 0;
 	while (i < data->line_amount)
 	{
-		data->map[i] = get_next_line(data->map_fd, malloc_check);
+		data->map[i] = get_next_line(data->map_fd, &malloc_check);
 		if (malloc_check != 0)
 			error_handler(data, MALLOC_FAILED);
 		i++;
@@ -105,12 +104,14 @@ void	map_path_check(t_data *data, char *map_path)
 
 	malloc_check = 0;
 	argument_check(data, map_path);
-	temp = get_next_line(data->map_fd);
+	temp = get_next_line(data->map_fd, &malloc_check);
+	if (malloc_check != 0)
+		error_handler(data, MALLOC_FAILED);
 	while (temp != NULL)
 	{
 		free(temp);
 		data->line_amount++;
-		temp = get_next_line(data->map_fd, malloc_check);
+		temp = get_next_line(data->map_fd, &malloc_check);
 		if (malloc_check != 0)
 			error_handler(data, MALLOC_FAILED);
 	}

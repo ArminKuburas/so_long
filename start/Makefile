@@ -28,11 +28,11 @@ all: $(PROGRAM)
 $(PROGRAM): $(OBJS) $(LIBFT) $(MLX42)
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBFT) $(MLX42) -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(OBJDIR):
-    mkdir -p $(OBJDIR)
+	mkdir -p $(OBJDIR)
 
 $(MLX42):
 	cmake $(MLXDIR) -B $(MLXDIR)/build && make -C $(MLXDIR)/build -j4

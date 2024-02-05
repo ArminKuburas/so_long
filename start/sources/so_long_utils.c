@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 10:01:10 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/05 12:21:56 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:49:24 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,26 @@ void	texture_image_loader(t_data *data)
 	if (data->wall == NULL)
 		mlx_error(data, LOAD_FAILURE);
 	data->img_wall = mlx_texture_to_image(data->mlx, data->wall);
+	if (data->img_wall == NULL)
+		mlx_error(data, IMAGE_FAILED);
 	data->floor = mlx_load_png("../map_textures/ground_tile.png");
 	if (data ->wall == NULL)
 		mlx_error(data, LOAD_FAILURE);
 	data->img_floor = mlx_texture_to_image(data->mlx, data->floor);
+	if (data->img_floor == NULL)
+		mlx_error(data, IMAGE_FAILED);
 	data->hero = mlx_load_png("../warrior_idle_textures/warrior_0.png");
 	if (data ->wall == NULL)
 		mlx_error(data, LOAD_FAILURE);
 	data->img_hero = mlx_texture_to_image(data->mlx, data->hero);
+	if (data->img_hero == NULL)
+		mlx_error(data, IMAGE_FAILED);
 	data->collectible = mlx_load_png("../sheep_textures/sheep_0.png");
 	if (data->collectible == NULL)
 		mlx_error(data, LOAD_FAILURE);
 	data->img_collectible = mlx_texture_to_image(data->mlx, data->collectible);
+	if (data->img_collectible == NULL)
+		mlx_error(data, IMAGE_FAILED);
 	data->exit = mlx_load_png("../map_textures/exit_castle.png");
 	if (data->exit == NULL)
 		mlx_error(data, LOAD_FAILURE);
@@ -76,11 +84,16 @@ void	close_everything(void *param)
 		mlx_delete_image(data->mlx, data->img_hero);
 	if (data->img_wall != NULL)
 		mlx_delete_image(data->mlx, data->img_wall);
-	mlx_delete_texture(data->collectible);
-	mlx_delete_texture(data->exit);
-	mlx_delete_texture(data->floor);
-	mlx_delete_texture(data->hero);
-	mlx_delete_texture(data->wall);
+	if (data->collectible != NULL)
+		mlx_delete_texture(data->collectible);
+	if (data->exit != NULL)
+		mlx_delete_texture(data->exit);
+	if (data->floor != NULL)
+		mlx_delete_texture(data->floor);
+	if (data->hero != NULL)
+		mlx_delete_texture(data->hero);
+	if (data->wall != NULL)
+		mlx_delete_texture(data->wall);
 	free(data->collectable_x);
 	free(data->collectable_y);
 	ft_free_substrings(&data->map);

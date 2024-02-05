@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 01:20:30 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/04 04:38:13 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:59:33 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	check_collectible(t_data *data)
 	}
 }
 
-static void	move_player_up(t_data *data, mlx_key_data_t keydata)
+static void	move_player_up(t_data *data)
 {
 	if (data->map[data->player_y - 1][data->player_x] != '1')
 	{
@@ -63,7 +63,7 @@ static void	move_player_up(t_data *data, mlx_key_data_t keydata)
 		ft_printf("You can't move there\n");
 }
 
-static void	move_player_left(t_data *data, mlx_key_data_t keydata)
+static void	move_player_left(t_data *data)
 {
 	if (data->map[data->player_y][data->player_x - 1] != '1')
 	{
@@ -80,7 +80,7 @@ static void	move_player_left(t_data *data, mlx_key_data_t keydata)
 		ft_printf("You can't move there\n");
 }
 
-static void	move_player_down(t_data *data, mlx_key_data_t keydata)
+static void	move_player_down(t_data *data)
 {
 	if (data->map[data->player_y + 1][data->player_x] != '1')
 	{
@@ -97,7 +97,7 @@ static void	move_player_down(t_data *data, mlx_key_data_t keydata)
 		ft_printf("You can't move there\n");
 }
 
-static void	move_player_right(t_data *data, mlx_key_data_t keydata)
+static void	move_player_right(t_data *data)
 {
 	if (data->map[data->player_y][data->player_x + 1] != '1')
 	{
@@ -122,11 +122,11 @@ void	player_movement(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(data->mlx);
 	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		move_player_up(data, keydata);
+		move_player_up(data);
 	else if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		move_player_left(data, keydata);
+		move_player_left(data);
 	else if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		move_player_down(data, keydata);
+		move_player_down(data);
 	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		move_player_right(data, keydata);
+		move_player_right(data);
 }

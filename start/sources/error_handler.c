@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:38:13 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/05 12:28:13 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:52:31 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,15 @@ void	error_handler(t_data *data, int classification)
 	if (data->map != NULL)
 		ft_free_substrings(&(data->map));
 	exit(1);
+}
+
+void	mlx_error(t_data *data, int classification)
+{
+	if (classification == IMAGE_FAILED)
+		ft_printf("Image failed to be placed.\n");
+	else if (classification == LOAD_FAILURE)
+		ft_printf("Image failed to load.\n");
+	else if (classification == RESIZE_FAILED)
+		ft_printf("Image failed to resize.\n");
+	mlx_close_window(data->mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 19:12:10 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/05 11:18:42 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/05 15:57:27 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ static void	place_exit(t_data *data)
 
 void	create_map(t_data *data)
 {
-	wall_floor_maker(data);
+	place_wall_floor(data);
 	place_collectibles(data);
 	place_exit(data);
 	place_player(data);
