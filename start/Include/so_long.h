@@ -6,14 +6,14 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:52:35 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/06 05:21:51 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/06 13:21:23 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../../MLX42/MLX42.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft/libft.h"
 # include <fcntl.h>
 

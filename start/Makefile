@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror
 SRCDIR = sources
 OBJDIR = objects
 LIBFTDIR = libft
