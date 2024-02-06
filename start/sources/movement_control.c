@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 01:20:30 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/06 04:30:41 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/06 04:58:46 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	check_collectible(t_data *data)
 			&& data->collectable_y[i] == data->player_y)
 		{
 			data->collected++;
-			ft_printf("You have collected a collectible\n");
-			ft_printf("You have collected %d collectibles\n", data->collected);
 			data->collectable_x[i] = -1;
 			data->collectable_y[i] = -1;
 			data->img_collectible->instances[i].enabled = false;
