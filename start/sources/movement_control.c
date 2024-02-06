@@ -6,43 +6,11 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 01:20:30 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/06 04:58:46 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/06 05:18:56 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/so_long.h"
-
-void	check_exit(t_data *data)
-{
-	if (data->collected == data->collectable_amount)
-	{
-		ft_printf("You have collected all collectibles\n");
-		ft_printf("You have won the game\n");
-		close_everything(data);
-	}
-	else
-		ft_printf("You can't exit yet\n");
-}
-
-void	check_collectible(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->collectable_amount)
-	{
-		if (data->collectable_x[i] == data->player_x
-			&& data->collectable_y[i] == data->player_y)
-		{
-			data->collected++;
-			data->collectable_x[i] = -1;
-			data->collectable_y[i] = -1;
-			data->img_collectible->instances[i].enabled = false;
-			break ;
-		}
-		i++;
-	}
-}
 
 static void	move_player_up(t_data *data)
 {

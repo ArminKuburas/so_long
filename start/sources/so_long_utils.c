@@ -6,13 +6,13 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 10:01:10 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/06 04:38:49 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/06 05:19:03 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Include/so_long.h"
 
-void	texture_image_loader(t_data *data)
+static void	image_loader_helper(t_data *data)
 {
 	data->wall = mlx_load_png("./map_textures/wall_tile.png");
 	if (data->wall == NULL)
@@ -26,6 +26,11 @@ void	texture_image_loader(t_data *data)
 	data->img_floor = mlx_texture_to_image(data->mlx, data->floor);
 	if (data->img_floor == NULL)
 		mlx_error(data, IMAGE_FAILED);
+}
+
+void	texture_image_loader(t_data *data)
+{
+	image_loader_helper(data);
 	data->hero = mlx_load_png("./warrior_idle_textures/warrior_0.png");
 	if (data->hero == NULL)
 		mlx_error(data, LOAD_FAILURE);
@@ -69,4 +74,36 @@ void	resizer(t_data *data)
 		mlx_error(data, RESIZE_FAILED);
 	mlx_set_window_size(data->mlx, width * (ft_strlen(data->map[0]) - 1),
 		height * data->line_amount);
+}
+
+void	check_exit(t_data *data)
+{
+	if (data->collected == data->collectable_amount)
+	{
+		ft_printf("You have collected all collectibles\n");
+		ft_printf("You have won the game\n");
+		close_everything(data);
+	}
+	else
+		ft_printf("You can't exit yet\n");
+}
+
+void	check_collectible(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->collectable_amount)
+	{
+		if (data->collectable_x[i] == data->player_x
+			&& data->collectable_y[i] == data->player_y)
+		{
+			data->collected++;
+			data->collectable_x[i] = -1;
+			data->collectable_y[i] = -1;
+			data->img_collectible->instances[i].enabled = false;
+			break ;
+		}
+		i++;
+	}
 }
