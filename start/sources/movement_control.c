@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 01:20:30 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/06 05:18:56 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/06 08:28:09 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ static void	move_player_up(t_data *data)
 		if (data->map[data->player_y][data->player_x] == 'C')
 			check_collectible(data);
 	}
-	else
-		ft_printf("You can't move there\n");
 }
 
 static void	move_player_left(t_data *data)
@@ -42,8 +40,6 @@ static void	move_player_left(t_data *data)
 		if (data->map[data->player_y][data->player_x] == 'C')
 			check_collectible(data);
 	}
-	else
-		ft_printf("You can't move there\n");
 }
 
 static void	move_player_down(t_data *data)
@@ -59,8 +55,6 @@ static void	move_player_down(t_data *data)
 		if (data->map[data->player_y][data->player_x] == 'C')
 			check_collectible(data);
 	}
-	else
-		ft_printf("You can't move there\n");
 }
 
 static void	move_player_right(t_data *data)
@@ -76,8 +70,6 @@ static void	move_player_right(t_data *data)
 		if (data->map[data->player_y][data->player_x] == 'C')
 			check_collectible(data);
 	}
-	else
-		ft_printf("You can't move there\n");
 }
 
 void	player_movement(mlx_key_data_t keydata, void *param)
