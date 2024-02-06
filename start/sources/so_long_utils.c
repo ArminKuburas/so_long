@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 10:01:10 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/06 05:19:03 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/06 08:37:46 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,7 @@ void	resizer(t_data *data)
 void	check_exit(t_data *data)
 {
 	if (data->collected == data->collectable_amount)
-	{
-		ft_printf("You have collected all collectibles\n");
-		ft_printf("You have won the game\n");
 		close_everything(data);
-	}
-	else
-		ft_printf("You can't exit yet\n");
 }
 
 void	check_collectible(t_data *data)
