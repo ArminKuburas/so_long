@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 SRCDIR = sources
 OBJDIR = objects
 LIBFTDIR = libft
@@ -7,6 +7,14 @@ MLXDIR = MLX42
 MLX42 = $(MLXDIR)/build/libmlx42.a
 LIBFT = $(LIBFTDIR)/libft.a
 PROGRAM = so_long
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S),Linux)
+LDFLAGS = -Iinclude -ldl -lglfw -pthread -lm
+endif
+ifeq ($(UNAME_S),Darwin)
+LDFLAGS = -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+endif
 
 SRCS = $(SRCDIR)/data_initialization.c \
 	$(SRCDIR)/error_handler.c \
@@ -26,7 +34,10 @@ OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 all: $(PROGRAM)
 
 $(PROGRAM): $(OBJS) $(LIBFT) $(MLX42)
-	$(CC) $(CFLAGS) -o $@ $^ $(LIBFT) $(MLX42) -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBFT) $(MLX42) $(LDFLAGS)
+
+check_flags:
+	@echo $(LDFLAGS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c -o $@ $<
@@ -43,12 +54,12 @@ $(LIBFT):
 clean:
 	rm -rf $(OBJDIR)
 	make -C $(LIBFTDIR) clean
-	rm -rf $(LIBMLX)/build
+	rm -rf $(MLXDIR)/build
 
 fclean: clean
-	rm $(PROGRAM)
+	rm -rf $(PROGRAM)
 	make -C $(LIBFTDIR) fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re check_flags

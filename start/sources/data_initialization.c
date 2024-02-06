@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:26:14 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/05 15:28:08 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/06 04:42:52 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ static void	initialize_collectable_cordinates(t_data *data)
 		error_handler(data, MALLOC_FAILED);
 	data->collectable_y = ft_calloc(data->collectable_amount + 1, sizeof(int));
 	if (!data->collectable_y)
+	{
+		free(data->collectable_x);
 		error_handler(data, MALLOC_FAILED);
+	}
 	data->collectable_x[data->collectable_amount] = -1;
 	data->collectable_y[data->collectable_amount] = -1;
 }

@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:56:08 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/05 12:17:44 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/06 04:30:53 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	game_handler(t_data *data)
 	resizer(data);
 	create_map(data);
 	mlx_key_hook(data->mlx, player_movement, data);
-	mlx_close_hook(data->mlx, close_everything, data);
 	mlx_loop(data->mlx);
 }
 

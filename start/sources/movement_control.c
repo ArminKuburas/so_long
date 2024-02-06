@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 01:20:30 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/05 15:59:33 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/06 04:30:41 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	check_exit(t_data *data)
 	{
 		ft_printf("You have collected all collectibles\n");
 		ft_printf("You have won the game\n");
-		mlx_close_window(data->mlx);
+		close_everything(data);
 	}
 	else
 		ft_printf("You can't exit yet\n");

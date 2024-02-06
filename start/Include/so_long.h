@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 12:52:35 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/05 15:57:04 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/06 04:36:40 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	player_movement(mlx_key_data_t keydata, void *param);
 void	create_map(t_data *data);
 void	texture_image_loader(t_data *data);
 void	resizer(t_data *data);
-void	close_everything(void *param);
+void	close_everything(t_data *data);
 void	mlx_error(t_data *data, int classification);
 
 #endif
