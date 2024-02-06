@@ -1,3 +1,6 @@
 start/objects
 start/MLX42/build/libmlx42.a
-%.o
+*.o
+libft.a
+start/so_long
+start/MLX42/build
