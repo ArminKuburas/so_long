@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_handler.c                                      :+:      :+:    :+:   */
+/*   map_handler_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 19:12:10 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/06 12:05:10 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/07 07:00:27 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/so_long.h"
+#include "../Include/so_long_bonus.h"
 
 static void	place_wall_floor(t_data *data)
 {

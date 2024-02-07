@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 12:13:51 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/06 16:17:39 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/07 07:05:39 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,5 @@ void	enemy_cordinates(t_data *data)
 	}
 }
 
-void	initialize_enemies(t_data *data)
-{
-	data->enemy_y = malloc(data->enemy_amount * sizeof(int));
-	if (data->enemy_y == NULL)
-		error_handler(data, MALLOC_FAILED);
-	data->enemy_x = malloc(data->enemy_amount * sizeof(int));
-	if (data->enemy_y == NULL)
-		error_handler(data, MALLOC_FAILED);
-	enemy_cordinates(data);
-}
+
 

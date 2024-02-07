@@ -6,11 +6,11 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:26:14 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/06 13:17:34 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/07 07:05:45 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/so_long.h"
+#include "../Include/so_long_bonus.h"
 
 static void	initialize_map(t_data *data)
 {
@@ -45,6 +45,17 @@ static void	initialize_collectable_cordinates(t_data *data)
 	}
 	data->collectable_x[data->collectable_amount] = -1;
 	data->collectable_y[data->collectable_amount] = -1;
+}
+
+static void	initialize_enemies(t_data *data)
+{
+	data->enemy_y = malloc(data->enemy_amount * sizeof(int));
+	if (data->enemy_y == NULL)
+		error_handler(data, MALLOC_FAILED);
+	data->enemy_x = malloc(data->enemy_amount * sizeof(int));
+	if (data->enemy_y == NULL)
+		error_handler(data, MALLOC_FAILED);
+	enemy_cordinates(data);
 }
 
 void	init_data(t_data *data, char *map_path)

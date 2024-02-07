@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handler.c                                    :+:      :+:    :+:   */
+/*   error_handler_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 14:38:13 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/06 04:51:54 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/07 07:00:24 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/so_long.h"
+#include "../Include/so_long_bonus.h"
 
 void	error_handler(t_data *data, int classification)
 {

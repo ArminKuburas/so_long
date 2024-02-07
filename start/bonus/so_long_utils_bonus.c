@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_utils.c                                    :+:      :+:    :+:   */
+/*   so_long_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 10:01:10 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/06 08:37:46 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/07 07:50:34 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/so_long.h"
+#include "../Include/so_long_bonus.h"
 
 static void	image_loader_helper(t_data *data)
 {
@@ -30,13 +30,42 @@ static void	image_loader_helper(t_data *data)
 
 void	texture_image_loader(t_data *data)
 {
+	int		i;
+	char	*path;
+
+	i = 0;
 	image_loader_helper(data);
-	data->hero = mlx_load_png("./warrior_idle_textures/warrior_0.png");
-	if (data->hero == NULL)
-		mlx_error(data, LOAD_FAILURE);
-	data->img_hero = mlx_texture_to_image(data->mlx, data->hero);
-	if (data->img_hero == NULL)
-		mlx_error(data, IMAGE_FAILED);
+	while (i < 6)
+	{
+		path = png_path("./warrior_idle_textures/warrior_", i, data);
+		if (path == NULL)
+			mlx_error(data, MALLOC_FAILED);
+		data->hero = mlx_load_png(path);
+		if (data->hero == NULL)
+			mlx_error(data, LOAD_FAILURE);
+		free (path);
+		i++;
+	}
+	i = 0;
+	while (i < 6)
+	{
+		data->img_hero = mlx_texture_to_image(data->mlx, data->hero[i]);
+		if (data->img_hero == NULL)
+			mlx_error(data, IMAGE_FAILED);
+		i++;
+	}
+	i = 0;
+	while (i < 14)
+	{
+		path = png_path("./sheep_textures/sheep_", i, data);
+		if (path == NULL)
+			mlx_error(data, MALLOC_FAILED);
+		data->collectible[i] = mlx_load_png(path);
+		if (data->collectible == NULL)
+			mlx_error(data, LOAD_FAILURE);
+		free (path);
+		i++;
+	}
 	data->collectible = mlx_load_png("./sheep_textures/sheep_0.png");
 	if (data->collectible == NULL)
 		mlx_error(data, LOAD_FAILURE);

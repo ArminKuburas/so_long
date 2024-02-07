@@ -6,7 +6,7 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:19:32 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/06 16:15:43 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/07 07:41:51 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,18 @@ typedef struct s_data
 	mlx_image_t		*move_str;
 	int				player_x;
 	int				player_y;
-	mlx_texture_t	**hero;
+	mlx_texture_t	*hero[6];
 	mlx_image_t		**img_hero;
 	mlx_texture_t	*floor;
 	mlx_image_t		*img_floor;
 	mlx_texture_t	*wall;
 	mlx_image_t		*img_wall;
-	mlx_texture_t	**collectible;
-	mlx_image_t		**img_collectible;
+	mlx_texture_t	collectible[][14][];
+	mlx_image_t		img_collectible[][14][];
 	mlx_texture_t	*exit;
 	mlx_image_t		*img_exit;
-	mlx_texture_t	**enemy;
-	mlx_image_t		**img_enemy;
+	mlx_texture_t	enemy[][8][];
+	mlx_image_t		img_enemy[][8][];
 	char			**map;
 }	t_data;
 
@@ -88,6 +88,8 @@ void	mlx_error(t_data *data, int classification);
 void	check_exit(t_data *data);
 void	check_collectible(t_data *data);
 char	*number_str(char *name, int number, t_data *data);
+void	enemy_cordinates(t_data *data);
+
 
 
 #endif

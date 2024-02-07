@@ -6,11 +6,11 @@
 /*   By: akuburas <akuburas@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 00:00:00 by akuburas          #+#    #+#             */
-/*   Updated: 2024/02/06 12:10:35 by akuburas         ###   ########.fr       */
+/*   Updated: 2024/02/07 07:00:29 by akuburas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Include/so_long.h"
+#include "../Include/so_long_bonus.h"
 
 static void	check_characters(t_data *data, int *player_amount, int *exit_amount)
 {
